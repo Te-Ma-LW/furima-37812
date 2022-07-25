@@ -30,7 +30,7 @@ Things you may want to cover:
 | ------------------ | ------- | ------------------------- |
 | nickname           | string  | null: false               |
 | email              | string  | null: false, unique: true |
-| user_password      | string  | null: false               |
+| encrypted_password | string  | null: false               |
 | family_name        | string  | null: false               |
 | first_name         | string  | null: false               |
 | family_name_kana   | string  | null: false               |
@@ -39,16 +39,15 @@ Things you may want to cover:
 
 ### Association
 - has_many :products
-- belongs_to :purchase 
+- has_many :purchase 
 
 
 
 
-## destination テーブル
+## destinations テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | -------------------------------|
-| user               | references | null: false, foreign_key: true |
 | post_code          | string     | null: false                    |
 | prefecture_id      | integer    | null: false                    | 
 | city               | string     | null: false                    |
@@ -66,8 +65,8 @@ Things you may want to cover:
 | ------------------- | ---------- | -------------------------------|
 | name                | string     | null: false                    |
 | description         | text       | null: false                    |
-| category_id         | string     | null: false                    |
-| status_id           | string     | null: false                    |
+| category_id         | integer    | null: false                    |
+| status_id           | integer    | null: false                    |
 | shipping_charges_id | integer    | null: false                    |
 | prefecture_id       | integer    | null: false                    |
 | shopping_days_id    | integer    | null: false                    | 
@@ -81,17 +80,15 @@ Things you may want to cover:
 - belongs_to_active_hush :prefecture
 
 
-# Purchase テーブル
+# Purchases テーブル
 
-| Column            | Type       | Options                        |
-| ----------------- | ---------- | -------------------------------|
-| user_id           | references | null: false, foreign_key: true |
-| products_id       | integer    | null: false                    |
-| destination_id    | integer    | null: false                    |
-| amount            | integer    | null: false                    |
+| Column            | Type       | Options                                          |
+| ----------------- | ---------- | -------------------------------------------------|
+| user              | references | null: false, foreign_key: true, references :user |
+| products          | references | null: false                                      |
 
 ### Association
-- belongs_to :destination
+- has_one :destination
 - belongs_to :user 
 - belongs_to :product 
 
