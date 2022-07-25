@@ -75,7 +75,7 @@ Things you may want to cover:
 
 ### Association
 - belongs_to :user
-- belongs_to :purchase 
+- has_one :purchase 
 
 - belongs_to_active_hush :prefecture
 
