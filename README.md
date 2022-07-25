@@ -39,7 +39,7 @@ Things you may want to cover:
 
 ### Association
 - has_many :products
-- has_many :purchase 
+- has_many :purchases 
 
 
 
@@ -54,6 +54,7 @@ Things you may want to cover:
 | adress             | string     | null: false                    |
 | building_name      | string     |                                |
 | phone_number       | string     | null: false                    |
+| purchase          | references | null: false                    |
 
 ### Association
 - belongs_to :purchase 
@@ -85,7 +86,7 @@ Things you may want to cover:
 | Column            | Type       | Options                                          |
 | ----------------- | ---------- | -------------------------------------------------|
 | user              | references | null: false, foreign_key: true, references :user |
-| products          | references | null: false                                      |
+| product           | references | null: false                                      |
 
 ### Association
 - has_one :destination
