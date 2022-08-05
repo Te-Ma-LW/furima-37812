@@ -160,3 +160,7 @@
   cursor: pointer;
 }
 
+#error_explanation {
+  text-align: center;
+  color: red;
+}
