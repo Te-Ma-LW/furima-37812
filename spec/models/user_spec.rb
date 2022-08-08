@@ -12,25 +12,22 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '新規登録できるとき' do 
-    it "nickname:必須" do
-      @user.nickname = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Nickname can't be blank"
-    end
-    it "email:必須" do
-      @user.email = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Email can't be blank"
-    end
-    it "password:必須" do
-      @user.password = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Password can't be blank"
-    end
-  end
-  
-    context '新規登録できないとき' do
+    context '新規登録できないとき' do 
+      it "nickname:必須" do
+        @user.nickname = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Nickname can't be blank"
+      end
+      it "email:必須" do
+        @user.email = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Email can't be blank"
+      end
+      it "password:必須" do
+        @user.password = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password can't be blank"
+      end
       it 'first_nameが空では登録できない' do
         @user.first_name = ''
         @user.valid?
@@ -77,45 +74,45 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include "Email has already been taken"
       end
-    it 'emailは@を含まないと登録できない' do
-        @user.email = 'testmail'
+      it 'emailは@を含まないと登録できない' do
+          @user.email = 'testmail'
+          @user.valid?
+          expect(@user.errors.full_messages).to include "Email is invalid"
+        end
+      it 'passwordが5文字以下では登録できない' do
+        @user.password = '12345'
+        @user.password_confirmation = '12345'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Email is invalid"
+        expect(@user.errors.full_messages).to include "Password is too short (minimum is 6 characters)"
       end
-    # it 'passwordが5文字以下では登録できない' do
-    #   @user.password = '12345'
-    #   @user.password_confirmation = '12345'
-    #   @user.valid?
-    #   expect(@user.errors.full_messages).to include "Password is too short (minimum is 6 characters)"
-    # end
-    # it 'パスワードに半角英数字が混在していないと登録できません' do
-    #   @user.password = 'aaaaaa'
-    #   @user.valid?
-    #   expect(@user.errors.full_messages).to include "Password must include both alphabetic and numeric characters"
-    #   end
-      it 'passwordが全角では登録できない' do
-        @user.password = 'ああああああ'
-        @user.password_confirmation = 'ああああああ'
+      it 'パスワードに半角英数字が混在していないと登録できません' do
+        @user.password = 'aaaaaa'
         @user.valid?
         expect(@user.errors.full_messages).to include "Password must include both alphabetic and numeric characters"
+        end
+        it 'passwordが全角では登録できない' do
+          @user.password = 'ああああああ'
+          @user.password_confirmation = 'ああああああ'
+          @user.valid?
+          expect(@user.errors.full_messages).to include "Password must include both alphabetic and numeric characters"
+        end
+        it 'passwordが数字のみだと登録できない' do
+          @user.password ='11111111'
+          @user.password_confirmation = '11111111'
+          @user.valid?
+          expect(@user.errors.full_messages).to include "Password must include both alphabetic and numeric characters"
+        end
+        it 'passwordとpassword_confirmationが不一致では登録できない' do
+          @user.password = '123456'
+          @user.password_confirmation = '1234567'
+          @user.valid?
+          expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+        end
+        it 'birth_dayが空では登録できない' do
+          @user.birth_day = ''
+          @user.valid?
+          expect(@user.errors.full_messages).to include "Birth day can't be blank"
+        end
       end
-      it 'passwordが数字のみだと登録できない' do
-        @user.password ='11111111'
-        @user.password_confirmation = '11111111'
-        @user.valid?
-        expect(@user.errors.full_messages).to include "Password must include both alphabetic and numeric characters"
-      end
-      it 'passwordとpassword_confirmationが不一致では登録できない' do
-        @user.password = '123456'
-        @user.password_confirmation = '1234567'
-        @user.valid?
-        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
-      end
-      it 'birth_dayが空では登録できない' do
-        @user.birth_day = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include "Birth day can't be blank"
-      end
-   end
   end
 end
