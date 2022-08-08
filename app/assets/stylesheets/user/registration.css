@@ -9,6 +9,7 @@
 
 /* form-wrapは商品購入画面でも使用しています */
 .form-wrap {
+  margin: 0 auto;
   width: 50%;
   background-color: white;
   padding-bottom: 70px;
@@ -157,4 +158,9 @@
   color: #0099e8;
   text-align: right;
   cursor: pointer;
+}
+
+#error_explanation {
+  text-align: center;
+  color: red;
 }
