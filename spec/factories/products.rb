@@ -3,12 +3,12 @@ FactoryBot.define do
     
     name                  { 'aaa' }
     description           { 'aaa' }
-    category_id           { '2' }
-    product_status_id     { '2' }
+    category_id           { '1' }
+    status_id             { '1' }
     prefecture_id         { '1' }
-    scheduled_delivery_id { '1' }
+    shopping_days_id      { '1' }
     shipping_charge_id    { '1' }
-    product_price_id      { '1111' }
+    price                 { '1111' }
     association :user
 
     after(:build) do |message|

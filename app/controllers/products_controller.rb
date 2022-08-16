@@ -1,19 +1,19 @@
 class ProductsController < ApplicationController
   
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: :index
 
 
 
   def index
-    @products = Product.order("created_at DESC")
+    # @products = Product.order("created_at DESC")
   end
  
   def new
     @product = Product.new
   end
   
-  def create
-    @product = Product.create(product_params)
+  def save
+    @product = Product.save(product_params)
     if @product.save
       redirect_to root_path
     else
@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-          params.require(:product).permit(:image, :name, :description, :product_status_id, :category_id, :scheduled_delivery_id, :shipping_charge_id, :prefecture_id, :product_price_id, :user_id).merge(user_id: current_user.id)
+          params.require(:product).permit(:image, :name, :description, :status_id, :category_id, :shopping_days_id, :shipping_charge_id, :prefecture_id, :price, :user).merge(user: current_user.id)
   end
   
 end

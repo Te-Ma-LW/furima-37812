@@ -47,23 +47,23 @@ ActiveRecord::Schema.define(version: 2022_08_12_075139) do
     t.string "name", null: false
     t.text "description", null: false
     t.integer "category_id", null: false
-    t.integer "product_status_id", null: false
+    t.integer "status_id", null: false
     t.integer "shipping_charge_id", null: false
     t.integer "prefecture_id", null: false
-    t.integer "scheduled_delivery_id", null: false
-    t.integer "product_price_id", null: false
+    t.integer "shopping_days_id", null: false
+    t.integer "price", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "scheduled_deliveries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "shipping_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "shipping_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "shopping_days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -7,7 +7,7 @@ RSpec.describe Product, type: :model do
 
   describe "商品出品機能" do
     context '商品を出品できる時' do 
-      it 'name,description,category_id,product_status_id,prefecture_id,scheduled_delivery_id,shipping_charge_id,product_price_id,user_idが存在すれば登録できる' do
+      it 'name,description,category_id,status_id,prefecture_id,shopping_days_id,shipping_charge_id,price,userが存在すれば登録できる' do
         expect(@product).to be_valid
       end
     end
@@ -41,13 +41,12 @@ RSpec.describe Product, type: :model do
       it "category_idが空では登録できない" do
         @product.category_id = ''
         @product.valid?
-        # binding.pry
         expect(@product.errors.full_messages).to include "Category can't be blank"
       end
-      it "product_status_idが空では登録できない" do
-        @product.product_status_id = ''
+      it "status_idが空では登録できない" do
+        @product.status_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include "Product status can't be blank"
+        expect(@product.errors.full_messages).to include "Status can't be blank"
       end
       it "shipping_charge_idが空では登録できない" do
         @product.shipping_charge_id = ''
@@ -59,22 +58,38 @@ RSpec.describe Product, type: :model do
         @product.valid?
         expect(@product.errors.full_messages).to include "Prefecture can't be blank"
       end
-      it "scheduled_delivery_idが空では登録できない" do
-        @product.scheduled_delivery_id = ''
+      it "shopping_days_idが空では登録できない" do
+        @product.shopping_days_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include "Scheduled delivery can't be blank"
+        expect(@product.errors.full_messages).to include "Shopping days can't be blank"
       end
-      it "product_price_idが空では登録できない" do
-        @product.product_price_id = ''
+      it "priceが空では登録できない" do
+        @product.price = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include "Product price can't be blank"
+        expect(@product.errors.full_messages).to include "Price can't be blank"
       end
-      it "product_price_idは全角カナでは登録できない" do
-        @product.product_price_id = 'あああ'
+      it "priceは全角カナでは登録できない" do
+        @product.price = 'あああ'
         @product.valid?
-        expect(@product.errors.full_messages).to include "Product price is not a number"
+        expect(@product.errors.full_messages).to include "Price is not a number"
+      end
+      it "価格が300円未満では出品できない" do
+        @product.price = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Price is not a number"
+      end
+      it "価格が9,999,999円を超えると出品できない" do
+        @product.price = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Price is not a number"
+      end
+      it "userが紐付いていなければ出品できない" do
+        @product.user = nil
+        @product.valid?
+        expect(@product.errors.full_messages).to include "User must exist"
       end
     end
+  
   end
 end
 

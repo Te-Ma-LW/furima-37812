@@ -54,7 +54,7 @@
           商品の状態
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:product_status_id, ProductStatus.all, :id, :product_status, {}, {class:"select-box", id:"product-category"}) %>
+        <%= f.collection_select(:status_id, Status.all, :id, :status, {}, {class:"select-box", id:"product-category"}) %>
       </div>
     </div>
     <%# /商品の詳細 %>
@@ -80,7 +80,7 @@
           発送までの日数
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:scheduled_delivery_id, ScheduledDelivery.all, :id, :scheduled_delivery, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
+        <%= f.collection_select(:shopping_days_id, ShoppingDays.all, :id, :shopping_days, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
       </div>
     </div>
     <%# /配送について %>
@@ -98,7 +98,7 @@
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :product_price_id, class:"price-input", id:"product-price", placeholder:"例）300" %>
+          <%= f.text_field :price, class:"price-input", id:"product-price", placeholder:"例）300" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
