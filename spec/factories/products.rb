@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :product do
-    
     name                  { 'aaa' }
     description           { 'aaa' }
     category_id           { '1' }
@@ -14,7 +13,5 @@ FactoryBot.define do
     after(:build) do |message|
       message.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
     end
-
-
   end
 end
