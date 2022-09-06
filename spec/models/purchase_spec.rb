@@ -23,4 +23,5 @@ RSpec.describe Purchase, type: :model do
       @order.valid?
       expect(@order.errors.full_messages).to include("Token can't be blank")
     end
-  endend
+  end
+end

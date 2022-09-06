@@ -60,10 +60,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
-  # def move_to_index
-  #   unless current_user && @product.purchase == nil 
-  #     redirect_to new_user_session_path 
-  #   end
-  # end
+  
 
 end
