@@ -1,0 +1,64 @@
+class PurchasesController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :move_to_index, only: [:index, :create]
+  
+  def index
+    @product = Product.find(params[:product_id])
+    @purchase_destination = PurchaseDestination.new
+    # if current_user == @purchase_destination.user_id
+    #    redirect_to root_path
+    # end
+  end
+  
+  def new
+    @purchase_destination = PurchaseDestination.new
+  end
+
+  
+  
+  def create
+    @purchase_destination = PurchaseDestination.new(purchase_params)
+    @product = Product.find(params[:product_id])
+    if 
+      # binding.pry
+      @purchase_destination.valid?
+      pay_item
+      @purchase_destination.save
+      redirect_to root_path
+    else
+      render 'index'
+    end
+  end
+
+#   def edit
+#     @product = Product.find(params[:product_id])
+#     redirect_to root_path unless current_user.id == @product.user_id
+# end
+  
+
+  private
+
+  def purchase_params
+    params.require(:purchase_destination).permit(:postal_code, :prefecture, :city, :house_number, :building_name, :phone_number, :product, :token).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
+  end
+
+  def pay_item
+    # binding.pry
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+        amount: @product.price,
+        card: params[:token],  
+        currency: 'jpy'                 
+      )
+    end
+
+    def move_to_index
+      @product = Product.find(params[:product_id])
+      if current_user.id == @product.user.id || @product.purchase.present?
+        redirect_to root_path
+      end
+    end
+    
+
+
+end

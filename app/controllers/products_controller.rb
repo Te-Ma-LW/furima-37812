@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_product, only: [:edit, :show, :update, :destroy]
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
+  # before_action :move_to_index, except: [:index, :show]
 
 
   def index
@@ -50,7 +51,7 @@ class ProductsController < ApplicationController
 
   def ensure_current_user
     product = Product.find(params[:id])
-    if product.user_id != current_user.id
+    if product.user_id != current_user.id || @product.purchase.present?
       redirect_to action: :index
     end
   end
@@ -58,4 +59,11 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
   end
+
+  # def move_to_index
+  #   unless current_user && @product.purchase == nil 
+  #     redirect_to new_user_session_path 
+  #   end
+  # end
+
 end

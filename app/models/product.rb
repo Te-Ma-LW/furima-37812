@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   belongs_to :shipping_charge
   belongs_to :user
   has_one_attached :image
-  # has_one :purchase
+  has_one :purchase
 
   validates :name, :image, :description, :category_id, :status_id, :prefecture_id, :shopping_days_id, :shipping_charge_id,
             :price, presence: true

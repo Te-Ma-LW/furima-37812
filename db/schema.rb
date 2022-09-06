@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_001138) do
+ActiveRecord::Schema.define(version: 2022_08_27_230334) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 2022_08_17_001138) do
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "destinations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "postal_code", null: false
+    t.integer "prefecture", null: false
+    t.string "city", null: false
+    t.string "house_number", null: false
+    t.string "building_name"
+    t.string "phone_number", null: false
+    t.bigint "purchase_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["purchase_id"], name: "index_destinations_on_purchase_id"
   end
 
   create_table "prefectures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -96,6 +109,8 @@ ActiveRecord::Schema.define(version: 2022_08_17_001138) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "destinations", "purchases"
   add_foreign_key "products", "users"
+  add_foreign_key "purchases", "products"
   add_foreign_key "purchases", "users"
 end
