@@ -2,7 +2,6 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_product, only: [:edit, :show, :update, :destroy]
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
-  # before_action :move_to_index, except: [:index, :show]
 
 
   def index

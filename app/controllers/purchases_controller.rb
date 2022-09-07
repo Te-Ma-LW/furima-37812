@@ -1,9 +1,9 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
+  before_action :set_product, only: [:index, :create]
   
   def index
-    @product = Product.find(params[:product_id])
     @purchase_destination = PurchaseDestination.new
   end
   
@@ -15,7 +15,6 @@ class PurchasesController < ApplicationController
   
   def create
     @purchase_destination = PurchaseDestination.new(purchase_params)
-    @product = Product.find(params[:product_id])
     if 
       @purchase_destination.valid?
       pay_item
@@ -31,7 +30,7 @@ class PurchasesController < ApplicationController
   private
 
     def purchase_params
-      params.require(:purchase_destination).permit(:postal_code, :prefecture, :city, :house_number, :building_name, :phone_number, :product, :token).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
+      params.require(:purchase_destination).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :product, :token).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
     end
 
     def pay_item
@@ -48,6 +47,10 @@ class PurchasesController < ApplicationController
       if current_user.id == @product.user.id || @product.purchase.present?
         redirect_to root_path
       end
+    end
+
+    def set_product
+      @product = Product.find(params[:product_id])
     end
 
 end
