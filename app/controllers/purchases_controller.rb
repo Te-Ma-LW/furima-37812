@@ -7,9 +7,7 @@ class PurchasesController < ApplicationController
     @purchase_destination = PurchaseDestination.new
   end
   
-  def new
-    @purchase_destination = PurchaseDestination.new
-  end
+  
 
   
   
