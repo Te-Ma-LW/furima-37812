@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
   def ensure_current_user
     product = Product.find(params[:id])
-    if product.user_id != current_user.id
+    if product.user_id != current_user.id || @product.purchase.present?
       redirect_to action: :index
     end
   end
@@ -58,4 +58,7 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
   end
+
+  
+
 end
