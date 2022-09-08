@@ -10,7 +10,7 @@ class Product < ApplicationRecord
   has_one :purchase
 
   validates :name, :image, :description, :category_id, :status_id, :prefecture_id, :shopping_days_id, :shipping_charge_id,
-            :price, presence: true
+             presence: true
   validates :category_id, :status_id, :prefecture_id, :shopping_days_id, :shipping_charge_id,
             numericality: { other_than: 0, message: "can't be blank" }
 
